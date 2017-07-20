@@ -1,0 +1,66 @@
+{
+  "containerDefinitions": [
+    {
+      "name": "express",
+      "command": [
+        "/express/start"
+      ],
+      "environment": [
+        {
+          "name": "ELASTICSEARCH_HOST",
+          "value": "elasticsearch"
+        }
+      ],
+      "essential": true,
+      "image": "############.dkr.ecr.us-east-1.amazonaws.com/eric-test/express:latest",
+      "links": [
+        "elasticsearch"
+      ],
+      "memoryReservation": 128,
+      "readonlyRootFilesystem": false
+    },
+    {
+      "name": "elasticsearch",
+      "essential": true,
+      "image": "############.dkr.ecr.us-east-1.amazonaws.com/eric-test/elasticsearch:latest",
+      "memoryReservation": 256,
+      "mountPoints": [
+        {
+          "sourceVolume": "volume-0",
+          "readOnly": false,
+          "containerPath": "/usr/share/elasticsearch/data"
+        }
+      ],
+      "readonlyRootFilesystem": false
+    },
+    {
+      "name": "nginx",
+      "command": [
+        "/docker/start"
+      ],
+      "essential": true,
+      "image": "############.dkr.ecr.us-east-1.amazonaws.com/eric-test/nginx:latest",
+      "links": [
+        "express"
+      ],
+      "memoryReservation": 128,
+      "portMappings": [
+        {
+          "protocol": "tcp",
+          "containerPort": 80,
+          "hostPort": 80
+        }
+      ],
+      "readonlyRootFilesystem": false
+    }
+  ],
+  "family": "eric-test-family",
+  "volumes": [
+    {
+      "host": {
+        "sourcePath": "elasticsearch"
+      },
+      "name": "volume-0"
+    }
+  ]
+}

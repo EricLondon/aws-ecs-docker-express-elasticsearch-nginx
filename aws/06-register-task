@@ -1,0 +1,12 @@
+#!/bin/bash
+
+AWS_PROFILE=default
+AWS_ACCOUNT_ID=############
+ROLE_NAME=eric-test-ecs-role
+TASK_ROLE_ARN=arn:aws:iam::$AWS_ACCOUNT_ID:role/$ROLE_NAME
+TASK_FAMILY=eric-test-family
+
+aws --profile $AWS_PROFILE ecs register-task-definition \
+  --family $TASK_FAMILY \
+  --task-role-arn $TASK_ROLE_ARN \
+  --cli-input-json file://aws/cloud-formation-task.json

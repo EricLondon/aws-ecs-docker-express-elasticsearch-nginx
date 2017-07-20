@@ -1,0 +1,21 @@
+#!/bin/bash
+
+AWS_IAM_INSTANCE_PROFILE=ecsInstanceRole
+AWS_KEY_NAME=
+AWS_PROFILE=default
+AWS_SECURITY_GROUP_IDS=sg-########
+AWS_SUBNET_ID=subnet-########
+EC2_COUNT=1
+EC2_INSTANCE_TYPE=m4.large
+ECS_AMI_ID=ami-04351e12
+
+aws ec2 run-instances \
+  --profile $AWS_PROFILE \
+  --image-id $ECS_AMI_ID \
+  --count $EC2_COUNT \
+  --instance-type $EC2_INSTANCE_TYPE \
+  --key-name $AWS_KEY_NAME \
+  --security-group-ids $AWS_SECURITY_GROUP_IDS \
+  --subnet-id $AWS_SUBNET_ID \
+  --iam-instance-profile Name=$AWS_IAM_INSTANCE_PROFILE \
+  --user-data file://aws/ecs.config

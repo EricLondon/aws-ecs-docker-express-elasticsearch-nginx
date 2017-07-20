@@ -1,0 +1,7 @@
+#!/bin/bash
+
+until nc -vz express 3000 2>/dev/null; do
+  sleep 1
+done
+
+nginx -g 'daemon off;'

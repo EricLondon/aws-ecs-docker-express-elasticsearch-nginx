@@ -1,0 +1,7 @@
+#!/bin/bash
+
+until curl elasticsearch:9200 &>/dev/null; do
+  sleep 1
+done
+
+node app.js

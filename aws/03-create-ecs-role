@@ -1,0 +1,8 @@
+#!/bin/bash
+
+AWS_PROFILE=default
+ROLE_NAME=eric-test-ecs-role
+
+aws --profile $AWS_PROFILE iam create-role \
+  --role-name $ROLE_NAME \
+  --assume-role-policy-document file://aws/container-service-task-role.json

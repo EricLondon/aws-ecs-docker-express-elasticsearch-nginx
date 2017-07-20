@@ -1,0 +1,6 @@
+#!/bin/bash
+
+AWS_PROFILE=default
+CLUSTER_NAME=eric-test-cluster
+
+aws --profile $AWS_PROFILE ecs create-cluster --cluster-name $CLUSTER_NAME

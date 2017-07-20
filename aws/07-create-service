@@ -1,0 +1,16 @@
+#!/bin/bash
+
+AWS_ACCOUNT_ID=############
+AWS_PROFILE=default
+AWS_REGION=us-east-1
+CLUSTER_NAME=eric-test-cluster
+SERVICE_COUNT=1
+SERVICE_NAME=eric-test-service
+TASK_FAMILY=eric-test-family
+TASK_DEFINITION_ARN=arn:aws:ecs:$AWS_REGION:$AWS_ACCOUNT_ID:task-definition/$TASK_FAMILY
+
+aws --profile $AWS_PROFILE ecs create-service \
+  --cluster $CLUSTER_NAME \
+  --service-name $SERVICE_NAME \
+  --task-definition $TASK_DEFINITION_ARN \
+  --desired-count $SERVICE_COUNT

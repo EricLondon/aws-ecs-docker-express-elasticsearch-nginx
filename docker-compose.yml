@@ -1,0 +1,33 @@
+version: '2'
+services:
+  elasticsearch:
+    build:
+      context: ./elasticsearch
+      dockerfile: Dockerfile
+    ports:
+      - '9200:9200'
+      - '9300:9300'
+    volumes:
+      - elasticsearch:/usr/share/elasticsearch/data
+  express:
+    build:
+      context: ./express
+      dockerfile: Dockerfile
+    command: ./start
+    depends_on:
+      - elasticsearch
+    environment:
+      - ELASTICSEARCH_HOST=elasticsearch
+    ports:
+      - '3000:3000'
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    command: /docker/start
+    depends_on:
+      - express
+    ports:
+      - '80:80'
+volumes:
+  elasticsearch: {}
