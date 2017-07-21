@@ -1,4 +1,4 @@
-Read blog post:
+See blog post:
 
 ### Define a Docker Compose file, transpose to a Cloudformation template, and deploy the cluster to Amazon EC2 Container Service using AWS CLI
 
