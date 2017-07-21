@@ -1,29 +1,37 @@
 {
+  "family": "eric-test-family",
   "containerDefinitions": [
     {
-      "name": "express",
-      "command": [
-        "/express/start"
+      "name": "elasticsearch",
+      "image": "############.dkr.ecr.us-east-1.amazonaws.com/eric-test/elasticsearch:latest",
+      "cpu": 0,
+      "memory": 0,
+      "memoryReservation": 0,
+      "links": [
+
       ],
-      "environment": [
+      "portMappings": [
         {
-          "name": "ELASTICSEARCH_HOST",
-          "value": "elasticsearch"
+          "protocol": "tcp",
+          "containerPort": "9200",
+          "hostPort": "9200"
+        },
+        {
+          "protocol": "tcp",
+          "containerPort": "9300",
+          "hostPort": "9300"
         }
       ],
       "essential": true,
-      "image": "############.dkr.ecr.us-east-1.amazonaws.com/eric-test/express:latest",
-      "links": [
-        "elasticsearch"
+      "entryPoint": [
+        ""
       ],
-      "memoryReservation": 128,
-      "readonlyRootFilesystem": false
-    },
-    {
-      "name": "elasticsearch",
-      "essential": true,
-      "image": "############.dkr.ecr.us-east-1.amazonaws.com/eric-test/elasticsearch:latest",
-      "memoryReservation": 256,
+      "command": [
+
+      ],
+      "environment": [
+
+      ],
       "mountPoints": [
         {
           "sourceVolume": "volume-0",
@@ -31,36 +39,206 @@
           "containerPath": "/usr/share/elasticsearch/data"
         }
       ],
-      "readonlyRootFilesystem": false
+      "volumesFrom": [
+        {
+          "sourceContainer": "",
+          "readOnly": true
+        }
+      ],
+      "hostname": "",
+      "user": "",
+      "workingDirectory": "",
+      "disableNetworking": true,
+      "privileged": true,
+      "readonlyRootFilesystem": true,
+      "dnsServers": [
+        ""
+      ],
+      "dnsSearchDomains": [
+        ""
+      ],
+      "extraHosts": [
+        {
+          "hostname": "",
+          "ipAddress": ""
+        }
+      ],
+      "dockerSecurityOptions": [
+        ""
+      ],
+      "dockerLabels": {
+        "KeyName": ""
+      },
+      "ulimits": [
+        {
+          "name": "nice",
+          "softLimit": 0,
+          "hardLimit": 0
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "splunk",
+        "options": {
+          "KeyName": ""
+        }
+      }
     },
     {
-      "name": "nginx",
-      "command": [
-        "/docker/start"
-      ],
-      "essential": true,
-      "image": "############.dkr.ecr.us-east-1.amazonaws.com/eric-test/nginx:latest",
+      "name": "express",
+      "image": "############.dkr.ecr.us-east-1.amazonaws.com/eric-test/express:latest",
+      "cpu": 0,
+      "memory": 0,
+      "memoryReservation": 0,
       "links": [
-        "express"
+        "elasticsearch"
       ],
-      "memoryReservation": 128,
       "portMappings": [
         {
           "protocol": "tcp",
-          "containerPort": 80,
-          "hostPort": 80
+          "containerPort": "3000",
+          "hostPort": "3000"
         }
       ],
-      "readonlyRootFilesystem": false
+      "essential": true,
+      "entryPoint": [
+        ""
+      ],
+      "command": [
+        "./start"
+      ],
+      "environment": [
+        {
+          "name": "ELASTICSEARCH_HOST",
+          "value": "elasticsearch"
+        }
+      ],
+      "mountPoints": [
+
+      ],
+      "volumesFrom": [
+        {
+          "sourceContainer": "",
+          "readOnly": true
+        }
+      ],
+      "hostname": "",
+      "user": "",
+      "workingDirectory": "",
+      "disableNetworking": true,
+      "privileged": true,
+      "readonlyRootFilesystem": true,
+      "dnsServers": [
+        ""
+      ],
+      "dnsSearchDomains": [
+        ""
+      ],
+      "extraHosts": [
+        {
+          "hostname": "",
+          "ipAddress": ""
+        }
+      ],
+      "dockerSecurityOptions": [
+        ""
+      ],
+      "dockerLabels": {
+        "KeyName": ""
+      },
+      "ulimits": [
+        {
+          "name": "nice",
+          "softLimit": 0,
+          "hardLimit": 0
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "splunk",
+        "options": {
+          "KeyName": ""
+        }
+      }
+    },
+    {
+      "name": "nginx",
+      "image": "############.dkr.ecr.us-east-1.amazonaws.com/eric-test/nginx:latest",
+      "cpu": 0,
+      "memory": 0,
+      "memoryReservation": 0,
+      "links": [
+        "express"
+      ],
+      "portMappings": [
+        {
+          "protocol": "tcp",
+          "containerPort": "80",
+          "hostPort": "80"
+        }
+      ],
+      "essential": true,
+      "entryPoint": [
+        ""
+      ],
+      "command": [
+        "/docker/start"
+      ],
+      "environment": [
+
+      ],
+      "mountPoints": [
+
+      ],
+      "volumesFrom": [
+        {
+          "sourceContainer": "",
+          "readOnly": true
+        }
+      ],
+      "hostname": "",
+      "user": "",
+      "workingDirectory": "",
+      "disableNetworking": true,
+      "privileged": true,
+      "readonlyRootFilesystem": true,
+      "dnsServers": [
+        ""
+      ],
+      "dnsSearchDomains": [
+        ""
+      ],
+      "extraHosts": [
+        {
+          "hostname": "",
+          "ipAddress": ""
+        }
+      ],
+      "dockerSecurityOptions": [
+        ""
+      ],
+      "dockerLabels": {
+        "KeyName": ""
+      },
+      "ulimits": [
+        {
+          "name": "nice",
+          "softLimit": 0,
+          "hardLimit": 0
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "splunk",
+        "options": {
+          "KeyName": ""
+        }
+      }
     }
   ],
-  "family": "eric-test-family",
   "volumes": [
     {
+      "name": "volume-0",
       "host": {
         "sourcePath": "elasticsearch"
-      },
-      "name": "volume-0"
+      }
     }
   ]
 }
