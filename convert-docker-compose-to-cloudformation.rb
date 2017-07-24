@@ -30,7 +30,6 @@ docker_compose_data = YAML.load_file docker_compose_file
 # transpose shared volumes
 volumes_map = {}
 docker_compose_data['volumes'].each_with_index do |(key, value), index|
-  #volume = cf_volume.dup
   volume = Marshal.load(Marshal.dump(cf_volume))
   volume['host']['sourcePath'] = key
   volume['name'] = "volume-#{index}"
@@ -40,7 +39,6 @@ end
 
 # transpose containers
 docker_compose_data['services'].each do |service|
-  # container = cf_container.dup
   container = Marshal.load(Marshal.dump(cf_container))
   container['name'] = service[0]
   container['image'] = "#{IMAGE}#{service[0]}:latest"
