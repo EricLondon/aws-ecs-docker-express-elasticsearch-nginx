@@ -9,7 +9,7 @@
   "author": "Eric London <github@ericlondon.com>",
   "license": "ISC",
   "dependencies": {
-    "elasticsearch": "^13.2.0",
+    "elasticsearch": "^16.7.3",
     "express": "^4.15.3"
   }
 }
